@@ -104,7 +104,10 @@ const queue = asyncQueue(({ id, data }, taskCallback) => {
     loaderRunner.runLoaders({
       loaders: data.loaders,
       resource: data.resource,
-      readResource: fs.readFile.bind(fs),
+      readResource(path, option, callback) {
+        const cb = callback || option;
+        cb(null, data.resourceContent);
+      },
       context: {
         version: 2,
         resolve: (context, request, callback) => {

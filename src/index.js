@@ -1,7 +1,7 @@
 import loaderUtils from 'loader-utils';
 import { getPool } from './workerPools';
 
-function pitch() {
+function loader(source, inputSourceMap) {
   const options = loaderUtils.getOptions(this) || {};
   const workerPool = getPool(options);
   if (!workerPool.isAbleToRun()) {
@@ -9,15 +9,13 @@ function pitch() {
   }
   const callback = this.async();
   workerPool.run({
-    loaders: this.loaders.slice(this.loaderIndex + 1).map((l) => {
-      return {
-        loader: l.path,
-        options: l.options,
-        ident: l.ident,
-      };
-    }),
+    loaders: [{
+      loader: options.loaderWorker,
+      options: options.loaderOption,
+    }],
     resource: this.resourcePath + (this.resourceQuery || ''),
-    sourceMap: this.sourceMap,
+    resourceContent: source,
+    sourceMap: inputSourceMap,
     emitError: this.emitError,
     emitWarning: this.emitWarning,
     resolve: this.resolve,
@@ -43,4 +41,4 @@ function warmup(options, requires) {
   workerPool.warmup(requires);
 }
 
-export { pitch, warmup }; // eslint-disable-line import/prefer-default-export
+export { loader as default, warmup }; // eslint-disable-line import/prefer-default-export

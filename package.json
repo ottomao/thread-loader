@@ -1,8 +1,6 @@
 {
-  "name": "thread-loader",
-  "version": "2.1.2",
-  "description": "Runs the following loaders in a worker pool",
-  "author": "Tobias Koppers @sokra",
+  "name": "thread-loader-wrapper",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/cjs.js",
   "files": [
@@ -65,9 +63,6 @@
   "peerDependencies": {
     "webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
-  "repository": "https://github.com/webpack-contrib/thread-loader.git",
-  "bugs": "https://github.com/webpack-contrib/thread-loader/issues",
-  "homepage": "https://github.com/webpack-contrib/thread-loader",
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": [
